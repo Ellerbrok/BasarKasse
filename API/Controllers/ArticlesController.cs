@@ -1,53 +1,20 @@
-using System;
 using Domain;
-using Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Application.Articles.Queries;
 
 namespace API.Controllers;
 
-public class ArticlesController(AddDbContext context) : BaseAPIController
+public class ArticlesController : BaseAPIController
 {
     [HttpGet]
     public async Task<ActionResult<List<Article>>> GetArticles()
     {
-        return await context.Articles.ToListAsync();
+        return await Mediator.Send(new GetArticleList.Query());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Article>> GetArticleDetail(string id)
     {
-        var article = await context.Articles.FindAsync(id);
-        if (article == null) return NotFound();
-        return article;
-    }
-
-    [HttpGet("customeritems/{id}")]
-    public async Task<ActionResult<List<Article>>> GetCustomerItems(string id)
-    {
-        return await context.Articles
-            .Where(article => article.CustomerId == id)
-            .ToListAsync();   
-
-    }
-
-    [HttpGet("customertotal/{id}")]
-    public async Task<ActionResult<CustomerTotal>> GetCustomerTotal(string id)
-    {
-        var items = await context.Articles
-            .Where(article => article.CustomerId == id)
-            .ToListAsync();   
-
-        if (items == null || items.Count == 0) 
-            return NotFound();
-
-        var customerTotal = new CustomerTotal
-        {
-            CustomerId = id,
-            ArticleCount = items.Count,
-            TotalAmount = items.Sum(item => item.Price)
-        };
-
-        return customerTotal;
+        return await Mediator.Send(new GetArticleDetails.Query { Id = id });
     }
 }
