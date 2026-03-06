@@ -9,5 +9,8 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Activity, Activity>();
+        CreateMap<Article, Article>();
+        CreateMap<Customer, Customer>();  
+        CreateMap<Seller, Seller>();
     }
 }
