@@ -4,9 +4,10 @@ import Card from "@mui/material/Card"
 type Props = {
     activity: Activity
     cancelSelectActivity: () => void
+    openForm: (id: string) => void
 }
 
-export default function ActivityDetail({ activity, cancelSelectActivity }: Props) {
+export default function ActivityDetail({ activity, cancelSelectActivity, openForm }: Props) {
   return (
     <Card>
       <CardMedia 
@@ -19,7 +20,7 @@ export default function ActivityDetail({ activity, cancelSelectActivity }: Props
         <Typography variant="body1">{activity.id}</Typography>
       </CardContent>
       <CardActions>
-        <Button color="primary">Edit</Button>
+        <Button color="primary" onClick={() => openForm(activity.id)}>Edit</Button>
         <Button color="inherit" onClick={cancelSelectActivity} >Cancel</Button>
       </CardActions>
     </Card>
