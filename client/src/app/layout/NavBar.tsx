@@ -1,4 +1,4 @@
-import { Group } from "@mui/icons-material";
+import { Group, PointOfSale } from "@mui/icons-material";
 import { Box, AppBar, Toolbar, Typography, Container, MenuItem } from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
@@ -11,7 +11,7 @@ export default function NavBar() {
                     <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Box>
                             <MenuItem component={NavLink} to="/" sx={{ display: 'flex', gap: 2 }}>
-                                <Group fontSize="large" />
+                                <PointOfSale fontSize="large" />
                                 <Typography variant="h4" fontWeight="bold">
                                     BasarKasse
                                 </Typography>
